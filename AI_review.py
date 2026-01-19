@@ -1,43 +1,79 @@
-import requests
-import time
+import os
 import json
+import re
+from collections import Counter
 
-def fetch_papers(topic, limit=5, retries=3, wait_seconds=5):
-    url = "https://api.semanticscholar.org/graph/v1/paper/search"
-    params = {"query": topic, "limit": limit, "fields": "title,authors,year,abstract,url"}
-    for attempt in range(retries):
-        response = requests.get(url, params=params)
-        if response.status_code == 200:
-            return response.json().get("data", [])
-        elif response.status_code == 429:
-            print(f"Rate limit hit. Waiting {wait_seconds} seconds...")
-            time.sleep(wait_seconds)
-        else:
-            response.raise_for_status()
-    return []
+DATA_FOLDER = "extracted_text"
 
-def show_papers(papers):
-    if not papers:
-        print("No papers found.")
-        return
-    for i, paper in enumerate(papers, start=1):
-        authors = ", ".join(a.get("name", "") for a in paper.get("authors", []))
-        print(f"\nPaper {i}")
-        print("Title:", paper.get("title", "N/A"))
-        print("Authors:", authors or "N/A")
-        print("Year:", paper.get("year", "N/A"))
-        print("Abstract:", paper.get("abstract", "N/A"))
-        print("URL:", paper.get("url", "N/A"))
-        print("-" * 60)
+# ---------------- TEXT CLEANING ----------------
+def clean_text(text):
+    if not text:
+        return ""
 
-def save_papers_json(papers, filename="AI_fetch.json"):
-    with open(filename, "w", encoding="utf-8") as file:
-        json.dump(papers, file, indent=4, ensure_ascii=False)
-    print(f"Dataset saved as {filename}")
+    text = text.replace("-\n", "")          # fix broken words
+    text = text.replace("\n", " ")           # remove new lines
+    text = re.sub(r"(?<=\w)(?=[A-Z])", " ", text)  # split joined words
+    text = re.sub(r"\s+", " ", text)         # remove extra spaces
+    return text.strip()
 
-if __name__ == "__main__":
-    topic = "Machine Learning"
-    print("Fetching papers...")
-    papers = fetch_papers(topic)
-    show_papers(papers)
-    save_papers_json(papers)  # <<< Add this in AI_review.py
+# ---------------- KEY FINDINGS ----------------
+def extract_key_findings(text, top_n=5):
+    sentences = [s.strip() for s in text.split(".") if len(s.strip()) > 40]
+
+    words = re.findall(r"\b[a-zA-Z]+\b", text.lower())
+    freq = Counter(words)
+
+    scored = []
+    for s in sentences:
+        score = sum(freq[w] for w in re.findall(r"\b[a-zA-Z]+\b", s.lower()))
+        scored.append((score, s))
+
+    scored.sort(reverse=True)
+    return [s for _, s in scored[:top_n]]
+
+# ---------------- MAIN PROCESS ----------------
+all_abstracts = []
+
+for file in os.listdir(DATA_FOLDER):
+    if not file.endswith(".json"):
+        continue
+
+    with open(os.path.join(DATA_FOLDER, file), "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    abstract = clean_text(data.get("abstract", ""))
+    conclusion = clean_text(data.get("conclusion", ""))
+
+    combined_text = abstract + " " + conclusion
+    findings = extract_key_findings(combined_text)
+
+    print(f"\n📄 Paper: {file}")
+    if findings:
+        for f in findings:
+            print("•", f)
+    else:
+        print("• No significant findings extracted")
+
+    if abstract:
+        all_abstracts.append(abstract)
+
+# ---------------- CROSS PAPER COMPARISON ----------------
+if len(all_abstracts) > 1:
+    common_words = set(re.findall(r"\b[a-zA-Z]+\b", all_abstracts[0].lower()))
+
+    for text in all_abstracts[1:]:
+        words = set(re.findall(r"\b[a-zA-Z]+\b", text.lower()))
+        common_words &= words
+
+    # remove useless words
+    stopwords = {
+        "the","and","to","of","in","for","a","is","on","with",
+        "that","as","are","this","be","by","an"
+    }
+
+    common_words = [w for w in common_words if w not in stopwords]
+
+    print("\n🔗 Common concepts across papers:")
+    print(common_words[:20])
+else:
+    print("\n⚠️ Not enough papers for cross-paper comparison")
