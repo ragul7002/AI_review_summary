@@ -1,75 +1,53 @@
-import os
 import json
-import re
-from collections import Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-EXTRACTED_FOLDER = "extracted_text"
 
-# ----- clean text -----
-def clean_text(text):
-    text = text.lower()
-    text = re.sub(r"[^a-z\s]", " ", text)
-    return text
+def find_most_similar(json_files):
+    titles = []
+    texts = []
 
-# ----- load JSON files -----
-def load_papers():
-    papers = {}
-    for file in os.listdir(EXTRACTED_FOLDER):
-        if file.endswith(".json"):
-            path = os.path.join(EXTRACTED_FOLDER, file)
-            with open(path, encoding="utf-8") as f:
-                papers[file] = json.load(f)
-    return papers
-
-# ----- abstracts -----
-def compare_abstracts():
-    papers = load_papers()
-    abstracts = {}
-    for name, data in papers.items():
-        abstracts[name] = data.get("abstract", "")
-    return abstracts
-
-# ----- keyword overlap -----
-def keyword_overlap(top_n=10):
-    papers = load_papers()
-    keyword_map = {}
-    for name, data in papers.items():
-        text = data.get("abstract", "")
-        cleaned = clean_text(text)
-        words = cleaned.split()
-        common = Counter(words).most_common(top_n)
-        keyword_map[name] = common
-    return keyword_map
-
-# ----- TF-IDF + Cosine similarity -----
-def compute_similarity():
-    abstracts = compare_abstracts()
-    names = list(abstracts.keys())
-    texts = list(abstracts.values())
-
-    vectorizer = TfidfVectorizer(stop_words="english")
-    tfidf_matrix = vectorizer.fit_transform(texts)
-
-    sim_matrix = cosine_similarity(tfidf_matrix)
-
-    similarity_scores = {}
-    for i, name in enumerate(names):
-        similarity_scores[name] = {}
-        for j, other_name in enumerate(names):
-            similarity_scores[name][other_name] = round(sim_matrix[i][j], 3)
-    return similarity_scores
-
-# ----- Most similar paper per PDF -----
-def most_similar_papers():
-    sim_scores = compute_similarity()
-    top_sim = {}
-
-    for paper, sims in sim_scores.items():
-        sims_filtered = {k: v for k, v in sims.items() if k != paper}
-        if not sims_filtered:
+    for path in json_files:
+        if path is None:
             continue
-        most_similar = max(sims_filtered, key=lambda x: sims_filtered[x])
-        top_sim[paper] = (most_similar, sims_filtered[most_similar])
-    return top_sim
+
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        text = data.get("full_text", "").strip()
+
+        if text:
+            titles.append(path.split("\\")[-1].replace(".json", ""))
+            texts.append(text)
+
+    if len(texts) < 2:
+        print("❌ Not enough usable papers (RAW text missing)")
+        return
+
+    vectorizer = TfidfVectorizer(
+        stop_words="english",
+        max_features=5000
+    )
+    tfidf = vectorizer.fit_transform(texts)
+
+    similarity_matrix = cosine_similarity(tfidf)
+
+    base_paper = titles[0]
+    scores = similarity_matrix[0]
+
+    similarities = sorted(
+        list(enumerate(scores)),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    best_match_index, best_score = similarities[1]
+
+    print("📄 Paper:")
+    print(base_paper)
+
+    print("\n🔍 Most similar to:")
+    print(titles[best_match_index])
+
+    print("\n📊 Similarity score:")
+    print(round(best_score, 2))
