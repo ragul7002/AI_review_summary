@@ -1,0 +1,10 @@
+{
+  "abstract": ". We investigate the notion of conditionally positive deﬁnite in the\ncontext of Hilbert C∗-modules and present a characterization of the condi-\ntionally positive deﬁniteness in terms of the usual positive deﬁniteness. We\ngive a Kolmogorov type representation of conditionally positive deﬁnite ker-\nnels in Hilbert C∗-modules.\nAs a consequence, we show that a C∗-metric\nspace (S, d) is C∗-isometric to a subset of a Hilbert C∗-module if and only if\nK(s, t) = −d(s, t)2 is a conditionally positive deﬁnite kernel. We also present\na characterization of the order K′ ≤K between conditionally positive deﬁnite\nkernels.\n1.",
+  "introduction": "",
+  "related_work": "",
+  "methodology": "",
+  "results": "",
+  "discussion": "",
+  "conclusion": "",
+  "references": "therein. There are other generalizations of this notion as well; see\n[8, §8].\nBy a kernel we mean any map on S × S into a C∗-algebra for some set S.\nFor any kernel L : S × S →A one can deﬁne the kernel L∗: S × S →A by\nL∗(s, t) = L(t, s)∗. A kernel L with values in a C∗-algebra is called hermitian if\nL∗= L.\n\n4\nM.S. MOSLEHIAN\nDeﬁnition 2.2. A hermitian map L : S × S →A is called a positive deﬁnite\nkernel if\nn\nX\ni,j=1\na∗\ni L(si, sj)aj ≥0.\n(2.1)\nfor every positive integer n, every s1, · · · , sn ∈S and every a1, · · · , an ∈A .\nIf L is a kernel with self-adjoint values, then (2.1) holds if Pn\ni,j=1 aiL(si, sj)aj ≥\n0 for any self-adjoint a1, · · · , an ∈A ."
+}

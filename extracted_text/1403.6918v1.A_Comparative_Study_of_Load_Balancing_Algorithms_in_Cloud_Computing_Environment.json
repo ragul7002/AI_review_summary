@@ -1,0 +1,10 @@
+{
+  "abstract": "Cloud Computing is a new trend emerging in IT \nenvironment with huge requirements of infrastructure \nand resources. Load Balancing is an important \naspect of cloud computing environment. Efficient load \nbalancing scheme ensures efficient resource utilization \nby provisioning of resources to cloud user’s on-demand \nbasis in pay-as-you-say-manner. Load Balancing may \neven support prioritizing users by applying appropriate \nscheduling criteria. This paper presents various load \nbalancing schemes in different cloud environment \nbased on requirements specified in Service Level \nAgreement (SLA).",
+  "introduction": "Cloud Computing is made up by aggregating two terms in \nthe field of technology. First term is Cloud and the second \nterm is computing. Cloud is a pool of heterogeneous \nresources. It is a mesh of huge infrastructure and has \nno relevance with its name “Cloud”. Infrastructure \nrefers to both the applications delivered to end users as \nservices over the Internet and the hardware and system \nsoftware in datacenters that is responsible for providing \nthose services.",
+  "related_work": "",
+  "methodology": "",
+  "results": "",
+  "discussion": "",
+  "conclusion": "Load Balancing is an essential task in Cloud Computing \nenvironment to achieve maximum utilization of \nresources. In this paper, we discussed various load \nbalancing schemes, each having some pros and cons. On \none hand static load balancing scheme provide easiest \nsimulation and monitoring of environment but fail to \nmodel heterogeneous nature of cloud. On the other hand, \ndynamic load balancing algorithm are difficult to simulate \nbut are best suited in heterogeneous environment of cloud \ncomputing. Also the level at node which implements this \nstatic and dynamic algorithm plays a vital role in deciding \nthe effectiveness of algorithm.",
+  "references": "[1]\t Foster, I., Zhao, Y., Raicu, I. & Lu, S. (2008). \nCloud computing and grid computing 360-degree \ncompared. IEEE Grid Computing Environment \nWorkshops.\n\t[2]\t Youseff, L."
+}

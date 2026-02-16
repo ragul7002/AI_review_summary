@@ -1,0 +1,6 @@
+{
+  "abstract": "—The ARMrayan Multimedia Mobile CMS (Content \nManagement System) is the first mobile CMS that gives the \nopportunity to users for creating multimedia J2ME mobile \napplications with their desired content, design and logo; simply, \nwithout any need for writing even a line of code. The low-level \nprogramming and compatibility problems of the J2ME, along with UI \ndesigning difficulties, makes it hard for most people –even \nprogrammers- to broadcast their content to the widespread mobile \nphones used by nearly all people. This system provides user-friendly, \nPC-based tools for creating a tree index of pages and inserting \nmultiple multimedia contents (e.g.",
+  "methodology": "",
+  "results": "",
+  "conclusion": "In this paper we presented a content management system for \nmobile devices that support the J2ME platform. The unique \nidea of the ARMrayan MCMS is its content-oriented structure \nwhich grants the user full control over the content he/she may \nwant to share and still without the need of writing even a line \nof mid level J2ME language code. The design of the mobile \nengine as a core and the insertion of the user’s data within a \ntemplate file is the main key of this solution."
+}

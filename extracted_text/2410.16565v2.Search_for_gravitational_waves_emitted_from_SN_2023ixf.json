@@ -1,0 +1,6 @@
+{
+  "abstract": "We present the results of a search for gravitational-wave transients associated with core-collapse\nsupernova SN 2023ixf, which was observed in the galaxy Messier 101 via optical emission on 2023 May\n19th, during the LIGO-Virgo-KAGRA 15th Engineering Run. We define a five-day on-source window\nduring which an accompanying gravitational-wave signal may have occurred. No gravitational waves\nhave been identified in data when at least two gravitational-wave observatories were operating, which\ncovered ∼14 % of this five-day window. We report the search detection efficiency for various possible\ngravitational-wave emission models.",
+  "methodology": ", we have considered the available published\nvalues to estimate the distance to M101. More precisely,\nwe have considered the distance estimations reported in\nthe NASA Extragalacic Database (Helou et al. 1991),\na total number of 115 measurements using 12 differ-\nent methods: Cepheids, Planetary Nebulae Luminosity\nFunction, Supernova Ia, Tip of Red Giant Branch, SN II\noptical, Brightest Stars, Tully-Fisher relation, M Stars,\nRSV Stars, S Dor stars, H II region diameter and SN II\nradio. We adopt the median to the remaining 115 data\npoints, 6.7 Mpc, with a standard deviation of 0.9 Mpc,\nas the estimated distance of SN 2023ixf.\n2.4.",
+  "results": "",
+  "conclusion": ""
+}

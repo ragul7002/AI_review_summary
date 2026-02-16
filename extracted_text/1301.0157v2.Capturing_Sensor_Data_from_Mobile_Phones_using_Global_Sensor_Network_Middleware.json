@@ -1,0 +1,6 @@
+{
+  "abstract": "—Mobile phones play increasingly bigger role in our\neveryday lives. Today, most smart phones comprise a wide variety\nof sensors which can sense the physical environment. The Internet\nof Things vision encompasses participatory sensing which is\nenabled using mobile phones based sensing and reasoning.",
+  "methodology": "",
+  "results": "using a\nSamsung Galaxy S mobile phone which runs Android platform\n2.3 and PowerTutor2 app. GSN instance was installed on\na laptop with Intel Core i7 CPU and 6GB ram. Network\ncommunications are through CSIRO ict center wiﬁnetwork.\nEach sensor consumes different amount of power.",
+  "conclusion": "In this research work, we identiﬁed how the sensor data\ncan be captured using mobile phones. In our approach, we\nevaluate the process of connecting a sensor to a data processing\nengine called GSN. AndroidWrapper was developed in order\nto retrieve sensor data from mobile phones."
+}

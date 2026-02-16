@@ -1,0 +1,10 @@
+{
+  "abstract": "This paper explores visual indeterminacy as a description for artwork created with Generative \nAdversarial Networks (GANs). Visual indeterminacy describes images which appear to depict \nreal scenes, but, on closer examination, defy coherent spatial interpretation. GAN models seem \nto be predisposed to producing indeterminate images, and indeterminacy is a key feature of much \nmodern representational art, as well as most GAN art. It is hypothesized that indeterminacy is a \nconsequence of a powerful-but-imperfect image synthesis model that must combine general \nclasses of objects, scenes, and textures. \n1.",
+  "introduction": "",
+  "related_work": "",
+  "methodology": "",
+  "results": "",
+  "discussion": "of visual ambiguity in terms of perceptual posterior \nprobability. Specifically, Muth and Carbon [6] explain visual indeterminacy in terms of \npredictive coding. Predictive coding is a prominent neuroscience theory for implementing \nperceptual uncertainty while explaining various observations from neurological studies. In \npredictive coding, neural representations for different aspects of image interpretation make \npredictions for other aspects. For example, if the scene recognition module interprets a scene as \ncontaining a face, then it sends eyes and nose predictions to modules for specific locations.",
+  "conclusion": "",
+  "references": "1. \nJ. Bailey, \"The Tools of Generative Art, From Flash to Neural Networks,\" Art in America, \n8 January 2020. \n2. \nT."
+}
